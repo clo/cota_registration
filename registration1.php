@@ -9,7 +9,7 @@ $file="registration1.php";
 echo "<table><tr><td>" .
 	  "Aus <b>organisatorischen Gründen</b>, hat sich das Organisationskomitee entschieden, für den Brunch eine <b>obligatorische Anmeldung</b> durchzuführen. " .
 	  "Am Sonntagmorgen werden auf Grund dieser Anmeldung die <b>Bändel</b> verteilt, welche für die Teilnahme am Brunch berechtigen.<br />" .
-	  "Den <b>Brief</>, den Sie in den letzten Tagen erhalten haben, muss am Sonntagmorgen vorgewiesen werden." .
+	  "Den <b>Brief</b>, den Sie in den letzten Tagen erhalten haben, muss am Sonntagmorgen vorgewiesen werden." .
 	  "</td></tr></table>";
 echo "<h5>Schritt 1/3</h5>\n";
 if ($debug) {
