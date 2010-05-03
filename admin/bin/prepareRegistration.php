@@ -5,9 +5,9 @@
  * To change the template for this generated file go to
  * Window - Preferences - PHPeclipse - PHP - Code Templates
  */
-include_once("../lib/class/class.keygen.php");
-include_once("../lib/class/class.db.php");
-include_once("../cfg/config.inc.php");
+include_once("../../lib/class/class.keygen.php");
+include_once("../../lib/class/class.db.php");
+include_once("../../cfg/config.inc.php");
 
 //basic stuff
 $db = new Db();
