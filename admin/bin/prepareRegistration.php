@@ -18,7 +18,7 @@ $year = date('Y');
 //get all with brunch
 $sql = "SELECT personendatenID,Vorname,Name,Firma,`Anzahl Brunch` " .
 	   "FROM $dbtablepersonen " .
-	   "WHERE Brunch=-1";
+	   "WHERE `Anzahl Brunch` > 0";
 $res =$db->query($sql);
 
 while ($row = mysql_fetch_row($res)){
