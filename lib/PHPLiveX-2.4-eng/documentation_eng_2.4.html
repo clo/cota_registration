@@ -1,0 +1,318 @@
+<style>
+
+.Table{
+	background-color: #F4F7FD;
+	width: 540px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+.Table td{
+	padding: 3px;
+}
+
+.Box{
+	width: 535px;
+	background-color: #F2F4FD;
+	color: #990000;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	border: #000000 1px dashed;
+	padding: 3px;
+}
+
+.Starred{
+	font-style: italic;
+	font-weight: bold;
+	color: #0000CC;
+}
+
+</style>
+
+<center style="font-family:Arial, Helvetica, sans-serif; color:#990000; font-weight:bold; font-size:14px">
+HOW TO USE PHPLIVEX ? (Version 2.4)
+</center><br />
+
+For older versions, please take a look at downloads section.
+<div class="Starred" align="center">
+The properties shown in blue are added in version 2.4 and the crossed out ones are removed with this version.
+</div>
+
+<br />
+<table class="Table" border="1">
+<tr><td width="160"><b>Constructor</b></td><td><b>Description</b></td></tr>
+<tr>
+  <td>PHPLiveX($functions, $url)</td>
+  <td>
+  Starts to handle ajax requests. Exports php functions for ajax.<br />
+	<b>$functions:</b> Optional. Takes function names (if more than 1, seperated by commas);<br />
+	<span class="starred">$url:</b> Optional. The URL of the file in use. When complex URLs are used, the class might not read them itself. It is solved by using this property.</span>
+  </td>
+</tr>
+</table>
+<br />
+
+<table class="Table" border="1">
+<tr><td width="160"><b>Method</b></td><td><b>Description</b></td></tr>
+<tr>
+<td>Export("functionNames,...")</td>
+<td>Exports the functions for ajax. Can only be called over run method.<br />
+	<b>Parameter Value:</b><br />
+	1) Function names (if more than 1, seperated by commas).<br />
+	2) &quot;ALL&quot; for all user defined functions.
+</td>
+</tr>
+<tr>
+<td><s>ExportClassFunctions("objectName-> methodName,...")</s><br>ExportObjectMethods("objectName-> methodName,...")</td>
+<td>Exports object methods for ajax. Can only be called over run method.
+<br />
+<b>Parameter Value:</b><br />
+	objectName (like myObject in "$myObject = new myClass();").<br />
+	methodName is name of the object method (if more than 1, seperated by commas).
+</td>
+</tr>
+<tr>
+<td>ExportMethods("objectNames,...")</td>
+<td>Exports all methods of the classes for ajax. Can only be called over run method.
+<br />
+<b>Parameter Value:</b><br />
+	Object names (if more than 1, seperated by commas);
+</td>
+</tr>
+<tr>
+<td>Run()</td>
+<td>Creates javascript codes to handle ajax requests. Must be called <s>between</s> <b>outside</b> script tags</td>
+</tr>
+</table>
+<br />
+
+<table class="Table" border="1">
+<tr>
+  <td width="160"><b>Property</b></td>
+  <td><b>Description</b></td>
+</tr>
+<tr>
+<td>ExternalJS (boolean)</td>
+<td>Default is "false". With "true" value, java script codes automatically created by the library are included in with another file. In this case, the user do not see the most of phplivex codes in source.</td>
+</tr>
+</table>
+<br>
+
+At first, you must create the phplivex object. To export your functions, you can use both constructor function and export method.
+<br /><br />
+
+<pre class="Box" align="left">
+&lt;?
+
+function myFunction($text){
+&nbsp;&nbsp;&nbsp;return $text;
+}
+
+$plx = new PHPLiveX("myFunction");
+### OR
+$plx = new PHPLiveX();
+$plx->Export("myFunction");
+
+?&gt;
+</pre>
+<br />
+
+If you want to export a class function, you must create the instance at first. Then you can export its functions as in the example.
+<b>Note that this property uses session so it needs session_start() ahead.</b>
+<br /><br />
+
+<pre class="Box" align="left">
+&lt;?
+
+class myClass(){
+&nbsp;&nbsp;&nbsp; var $Text;
+  
+&nbsp;&nbsp;&nbsp; public function __construct($text){
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $this->Text = $text;
+&nbsp;&nbsp;&nbsp; }
+
+&nbsp;&nbsp;&nbsp; public function setText(){
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return $this->Text;
+&nbsp;&nbsp;&nbsp; }
+}
+
+$test = myClass("it's very easy-to-use");
+	
+$plx->ExportObjectMethods("test->setText");
+### OR
+$plx-&gt;ExportObjects(&quot;test&quot;);
+
+?&gt;
+</pre>
+<br />
+
+You must call run method between script tags anywhere on the page. But give attention that methods under run method does not work.
+So it's better to call it at the end of the page if you are using complex template systems, but if it is not a problem for your system in any way, you'd better prefer "head" tags.
+<br /><br />
+
+<pre class="Box" align="left">
+<s>&lt;script language="javascript"&gt;</s>
+&lt;? $plx->Run(); ?&gt;
+<s>&lt;/script&gt;</s>
+</pre>
+<br />
+
+You can call your exported functions via javascript. The global functions are called directly with its name (e.g. myFunction) but the class functions are called with #instanceName__methodName# (e.g. test__setText).
+<br />
+In order to call these functions, you must use necessary parameters below within one last argument. But all of these properties are optional. If you don't use any of them (pass the argument empty), the function runs without returning a value.
+<br />
+<br />
+
+<table class="Table" border="1">
+<tr>
+<td width="100"><b>Parameter</b></td>
+<td><b>Description</b></td>
+</tr>
+<tr>
+<td>type</td>
+<td>Can take only one value "r". If you want to get returned value of the function (e.g. pass the value to a variable). And if this parameter is used, the others except &quot;mehod&quot; and &quot;url&quot; cannot be used. Note that if this parameter is used, the ajax request runs synchronously. (During the process, no other function runs and it is slower.)</td>
+</tr>
+<tr>
+<td>target</td>
+<td>Takes the ID value of a DOM element and returned value of the function is printed to its attribute which is defined by "targetProperty". If this parameter is used as &quot;target=alert&quot;, the returned value is alerted. <s>If it takes more values, these  are given in this way: &quot;target=id1:id2:id3&quot;</s> (This property was removed because the same operation can be done with &quot;onFinish&quot; and &quot;onUpdate&quot; parameters).</td>
+</tr>
+<tr>
+<td>mode</td>
+<td>The default value is "rw"(rewrite) which means rewriting the returned value to an attribute(defined by "targetProperty") of the "target". If you use
+"aw" (append), the value is appended to the initial value of attribute, whereas <s>&quot;asw&quot;</s> &quot;pw&quot; prepends it.</td>
+</tr>
+<tr>
+<td>preload</td>
+<td>Can take the ID value of a DOM element used for preload. It must be hidden(style= "visibility:hidden" or "display:none") initially. During the process, the foregoing element is made visible and then hidden when the process finishes. Note that this parameter can not be used with type together, because it needs an asynchronous request.</td>
+</tr>
+<tr>
+<td>method</td>
+<td>Can take "post" and "get" values. These are the http-methods of the xmlhttp request. Default value is "POST". When used with <span class="starred">"SubmitForm" method, it becomes the form method.</span></td>
+</tr>
+<tr>
+<td class="starred">onRequest</td>
+<td class="starred">The value must be a javascript function. This function runs just before the request is sent.</td>
+</tr>
+<tr>
+<td>onFinish</td>
+<td>The value must be javascript function. This function runs when the response of request is taken, but before it is written to page. In addition, the response code is passed as an argument to the function. If it returns something, the response code to be written is replaced with this returned value.</td>
+</tr>
+<tr>
+<td>onUpdate</td>
+<td>The value must be a javascript function. This function runs when the response of request is taken, but after it is written to page. In addition, the response code is passed as an argument to the function.</td>
+</tr>
+<tr>
+<td><s>hideContent</s> clearValue</td>
+<td>Can take boolean values (Default is "false"). &quot;true&quot; value means that during the preloading, the content of target dom element is emptied. </td>
+</tr>
+<td>interval</td>
+<td>Can take a time interval in milliseconds. With this interval, the function is called repeatedly.</td>
+</tr>
+<tr>
+<td><s>myPreload</s></td>
+<td>This parameter, which gives users the possibility to create their own preloading, was deprecated, because the same operation may be done with "onRequest" and "onUpdate" parameters.</td>
+</tr>
+<tr>
+<td class="starred">targetProperty</td>
+<td class="starred">By default, "innerHTML" or "value" attributes (which is supported) of the target dom element are manipulated. "targetProperty" can change the attribute manipulated (e.g. by using targetProperty: "style.backgroundColor", the background color of target dom element can be changed).</td>
+</tr>
+<tr>
+<td class="starred"><s>hideProperty</s> preloadStyle</td>
+<td class="starred">It is "visibility" or "display" attribute (used for hiding and revealing element) of the dom element for preloading. Default is "display".</td>
+</tr>
+<tr>
+<td class="starred">url</td>
+<td class="starred">It can be used for three different functions:
+<ol>
+<li>By using with "ExternalCall" method, URL of another page is passed to send ajax request to that file.</li>
+<li>By using with "SubmitForm" method, URL of another page is passed to assign it as form action.</li>
+<li>When using nested ajax requests (e.g. include another page containing new phplivex exports with ajax), ajax functions defined in the ajax response (included page) do not work properly, because browser read the page once. So, you must pass this functions "url" parameter containing the file URLs in which they are defined.</li>
+</ol>
+</td>
+</tr>
+</table>
+<br />
+
+<table class="Table" border="1">
+<tr>
+<td width="100"><b>Methods</b></td>
+<td><b>Description</b></td>
+</tr>
+<tr>
+<td class="starred">ExternalCall(parameters)</td>
+<td class="starred">Used to send ajax requests to another page. (e.g. new PHPLiveX().ExternalCall({preload: '...', target: '...', url: 'test.php', ...}))</td>
+</tr>
+<tr>
+<td class="starred">SubmitForm(form, filterFunction(default is null), parameters)</td>
+<td class="starred">Used to send forms by ajax request. The first argument is a form element. The second is a function for filtering (e.g. error controls. Default is null) form values and called before sending form. (e.g. &lt;form onsubmit="return new PHPLiveX().SubmitForm(this, null, {url:'test.php', target: 'alert', method: 'get', ...});"&gt;).</td>
+</tr>
+</table>
+<br />
+
+<pre class="Box" align="left">
+&lt;a href="
+javascript:myFunction('it is an example', <b><i>{target: "showText", preload: "loadSpan"}</i></b>);
+"&gt;test it&lt;/a&gt;
+
+&lt;span id="<i>showText</i>"&gt;&lt;/span&gt;
+&lt;span id="<i>loadSpan</i>" style="display:none;"&gt;Loading...&lt;/span&gt;
+
+&lt;!--
+If you use "visibility" attribute instead of "display", hideProperty parameter must take "visibility" 
+value.
+--&gt;
+</pre>
+
+<br />
+The function ahead prints "it is an example" to the innerHTML of the DOM element(span) whose id is "showText". It also uses preloading
+by displaying "Loading..." text during the process. The mode parameter is "rw" by default. By each click on the anchor, foregoing span shows the same text. But if "mode=aw" parameter is added, the text will append to the initial value. For example; after 3 calls, innerHTML of the span becomes "it is an exampleit is an exampleit is an example". If you don't use preload parameter, there won't be any preloading. In addition, you don't have to use target method. For example; supposing that your function just updates database, you don't define a target and it doesn't print anything.<br /><br />
+
+<pre class="Box" align="left">
+&lt;script&gt;
+function changeResponse(resp){
+	return "This text is added to returned value of myFunction. " + resp;
+}
+
+function showContent(resp){
+	alert(document.getElementById(&quot;showText&quot;).innerHTML);
+}
+&lt;/script&gt;
+
+&lt;a href="javascript:
+myFunction('It is another example', 
+<b><i>{target: "showText", preload: "loadSpan", onFinish: changeResponse, 
+onUpdate: showContent}</i></b>);"&gt;test it&lt;/a&gt;
+</pre>
+<br />
+
+The function above prints "This text is added to returned value of myFunction. It is another example" to the target dom element (showText). When it is done, an alert box containing this text appears.
+<br /><br />
+
+<pre class="Box" align="left">
+&lt;script language=&quot;javascript&quot; &gt;
+var output = test__setText(&quot;an example&quot;, <b>{type: "r"}</b>);
+# ...
+&lt;/script&gt;
+</pre>
+
+<br />
+As this function use "type=r" parameter, the value it returns may be passed to a variable.
+
+<br />
+<br />
+
+<h4><u>ExternalCall and SubmitForm Methods</u></h4>
+<br />
+<pre class="Box" align="left">&lt;a href=&quot;javascript:<b>new PHPLiveX().ExternalCall({url: 'test.php', preload: '...', target: '...', ...});</b>&quot;&gt;
+click to send an ajax request to "test.php" and retreive the page output if exists.
+&lt;/a&gt;
+</pre>
+<br />
+<pre class="Box" align="left">&lt;form <b>onsubmit=&quot;
+return new PHPLiveX().SubmitForm(this, null, {url: 'test2.php', method: 'get', onFinish: '...', ...});
+&quot;</b>&gt;
+&lt;input type=&quot;text&quot; name=&quot;username&quot;&gt;
+&lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;
+&lt;input type=&quot;submit&quot;&gt;
+&lt;/form&gt;</pre>
+<br />

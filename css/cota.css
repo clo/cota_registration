@@ -1,0 +1,72 @@
+body {
+  font-family: Arial;
+}
+h3 {
+  font-family: Arial;
+}
+.button {
+  	font-family: Arial;
+	color: #000000;
+	background-color: #D0D0D0;
+	height: 20px;
+	width: 80px;
+	border: 1px solid;
+    text-decoration: none;
+}
+
+.info_pos {
+  	font-family: Arial;
+	color: #000000;
+	background-color: #ADEB6F;
+	height: 20px;
+	width: 400px;
+	border: #000000 1px solid;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.info_neutral {
+  	font-family: Arial;
+	color: #000000;
+	background-color: #6FDFEB;
+	height: 20px;
+	width: 400px;
+	border: #000000 1px solid;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.info_neg {
+  	font-family: Arial;
+	color: #000000;
+	background-color: #EA816F;
+	height: 20px;
+	width: 400px;
+	border: #000000 1px solid;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.bottom {
+   background-color: #BBBBBB;
+   font-family: Arial;
+   size: 6px;
+}
+.white {
+   background-color: #FFFFFF;
+   padding:1px;
+   height: 5px;
+}
+
+table {
+   background-color: #EEEEEE;
+   font-family: Arial;
+   size: 8px;
+}
+
+tr {
+   font-family: Arial;
+   size: 8px;
+}
+
+
