@@ -44,5 +44,19 @@ $libLiveX = "lib/PHPLiveX-2.4.1/PHPLiveX_2.4.1.php";
 
 $htpasswd = 'Z:\LOC\kjoff\bin\3rd\xampp-win32-1.6.4\xampp\apache\bin\htpasswd.exe';
 $htpasswdfilename = 'htaccess';
-$htpasswduser['chlo'] = 'chlo2008$';
+$htpasswduser['chlo'] = 'chlo2008$'; //Christian Lochmatter
+$htpasswduser['paeb'] = 'paeb2008$'; //Pascal Ebener 
+$htpasswduser['eley'] = 'eley2008$'; //Elmar Eyer
+$htpasswduser['peam'] = 'peam2008$'; //Peter Ammann
+$htpasswduser['kaim'] = 'kaim2008$'; //Karin Imhof
+$htpasswduser['frma'] = 'frma2008$'; //Franco Mary
+$htpasswduser['rusa'] = 'rusa2008$'; //Rupert Salzmann
+$htpasswduser['dahe'] = 'dahe2008$'; //Daniel Hermann
+$htpasswduser['wigu'] = 'wigu2008$'; //Willy Gunter
+$htpasswduser['phge'] = 'phge2008$'; //Philipp Gerold
+$htpasswduser['maim'] = 'maim2008$'; //Matthias Imhasly
+$htpasswduser['masc'] = 'masc2008$'; //Martin Schmidt
+$htpasswduser['dazu'] = 'dazu2008$'; //Daniel Zurwerra
+
+
 ?>
