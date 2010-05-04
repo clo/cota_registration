@@ -28,14 +28,14 @@ echo "</form>";
 if (isset($_POST['cat'])){
   $aPersonen = $db->getPersonen($_POST['cat'],date('Y'));
   echo "<table cellpadding=0 cellspacing=1>";
-  echo "<tr><th>Personenid</th><th align='left'>Teilnehmer</th><th>Anzahl Brunch</th><th>Anzahl Turnierkarten</th><th>Bemerkungen</th><th>Angemeldet</th></tr>";
+  echo "<tr><th>Personenid</th><th align='left'>Teilnehmer</th><th>Brunch</th><th>Turnierkarten</th><th>Bemerkungen</th><th>Angemeldet</th></tr>";
   foreach ($aPersonen as $id => $val){
     if ( $id % 2 ){
   	  $bgcolor = "bgcolor='$bgcolor1'";
     }else{
   	  $bgcolor = "bgcolor='$bgcolor2'";
     }
-    echo "<tr style='font-family: courier;' $bgcolor><td>$val[1]</td><td>$val[0]</td><td>$val[2]</td><td>$val[3]</td></tr>";
+    echo "<tr style='font-family: courier;' $bgcolor><td>$val[1]</td><td>$val[0]</td><td>$val[2]</td><td>$val[3]</td><td>$val[4]</td><td>$val[5]</td></tr>";
   }
   echo "</table>";
 }

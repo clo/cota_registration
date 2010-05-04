@@ -138,7 +138,7 @@ class Db{
 	  		 "p.personendatenid," .
 	  		 "p.`Anzahl Brunch`," .
 	  		 "p.`Anzahl Turnierkarten`, " .
-	  		 "p.Bemerkungen, " .
+	  		 "IF(p.Bemerkungen='','&nbsp;',p.Bemerkungen), " .
  	  		 "IF(r.angemeldet > 0,'ANGEMELDET','N/A') AS `Status` " .
 	  		 "FROM personendaten p, geschichte g, kategorien k, registration r " .
 	  		 "WHERE p.personendatenid=g.personendatenid " .
@@ -146,8 +146,6 @@ class Db{
 	  		 "AND g.jahr=$year " .
 	  		 "AND k.kategorieid=$catid " .
 	  		 "AND p.personendatenid=r.adressid";
-	  
-	  echo $sql;
 	  $res = $this->query($sql);
 	  $i = 1;
 	  while ($row = mysql_fetch_row($res)) {
