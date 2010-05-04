@@ -28,7 +28,7 @@ echo "</form>";
 if (isset($_POST['cat'])){
   $aPersonen = $db->getPersonen($_POST['cat'],date('Y'));
   echo "<table cellpadding=0 cellspacing=1>";
-  echo "<tr><th>Personenid</th><th align='left'>Teilnehmer</th><th>Anzahl Brunch</th><th>Anzahl Turnierkarten</th></tr>";
+  echo "<tr><th>Personenid</th><th align='left'>Teilnehmer</th><th>Anzahl Brunch</th><th>Anzahl Turnierkarten</th><th>Bemerkungen</th><th>Angemeldet</th></tr>";
   foreach ($aPersonen as $id => $val){
     if ( $id % 2 ){
   	  $bgcolor = "bgcolor='$bgcolor1'";

@@ -34,5 +34,7 @@ echo "</td></tr>";
 echo "</table>\n";
 echo "<br /><br />\n";
 //TODO: send mail
+$header = "From: $mailfrom\r\nReply-To:$mailto";
+mail($mailto,"Brunch 2010 Registration $_SESSION['anzahl']."/".$_SESSION['kontingent']",$userinfo,$header);
 //$db->close();
 ?>

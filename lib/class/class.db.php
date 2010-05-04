@@ -146,6 +146,8 @@ class Db{
 	  		 "AND g.jahr=$year " .
 	  		 "AND k.kategorieid=$catid " .
 	  		 "AND p.personendatenid=r.adressid";
+	  
+	  echo $sql;
 	  $res = $this->query($sql);
 	  $i = 1;
 	  while ($row = mysql_fetch_row($res)) {
