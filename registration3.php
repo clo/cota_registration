@@ -33,5 +33,6 @@ echo "<?PHPhref='mailto:info@cupofthealps.ch?Subject=Brunch 2010'>info@cupofthea
 echo "</td></tr>";
 echo "</table>\n";
 echo "<br /><br />\n";
+//TODO: send mail
 //$db->close();
 ?>

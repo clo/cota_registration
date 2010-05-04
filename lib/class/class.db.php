@@ -120,6 +120,41 @@ class Db{
 	  return $aVal;
    }
    
+   public function getCategories($year){
+     $aVal = array();
+     $sql = "SELECT k.kategorieid,k.kategorieName FROM kategorien k,geschichte g WHERE g.jahr=$year " .
+     		"ORDER BY k.kategorieName ASC";
+     $res = $this->query($sql);
+     while ($row = mysql_fetch_row($res)){
+	  	$aVal[$row[0]] = $row;
+	  }
+	  return $aVal;
+   }
+   
+   public function getPersonen($catid,$year){
+   	  $aVal = array();
+   	  $sql = "SELECT " .
+   	  		 "CONCAT(IF(p.name != '' && p.vorname != '',CONCAT(p.name,' ',p.vorname),''),IF(p.firma != '',CONCAT(',',p.firma),''),IF(p.funktion != '',CONCAT(', ',p.funktion),'')) as Teilnehmer, " . 
+	  		 "p.personendatenid," .
+	  		 "p.`Anzahl Brunch`," .
+	  		 "p.`Anzahl Turnierkarten`, " .
+	  		 "p.Bemerkungen, " .
+ 	  		 "IF(r.angemeldet > 0,'ANGEMELDET','N/A') AS `Status` " .
+	  		 "FROM personendaten p, geschichte g, kategorien k, registration r " .
+	  		 "WHERE p.personendatenid=g.personendatenid " .
+	  		 "AND k.kategorieid=g.kategorieid " .
+	  		 "AND g.jahr=$year " .
+	  		 "AND k.kategorieid=$catid " .
+	  		 "AND p.personendatenid=r.adressid";
+	  $res = $this->query($sql);
+	  $i = 1;
+	  while ($row = mysql_fetch_row($res)) {
+	  	$aVal[$i] = $row;
+	  	$i++;
+	  }
+	  return $aVal;	  		 
+   }
+   
    public function getOverview(){
    	 $sql = "SELECT SUM(kontingent) AS `Verschickt`,SUM(angemeldet) AS `Angemeldet` FROM registration ";
    	 $res =$this->query($sql);
